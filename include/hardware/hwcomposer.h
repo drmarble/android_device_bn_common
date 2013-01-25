@@ -360,6 +360,13 @@ enum {
      * data: hwc_layer_stack_t
      */
     HWC_EXTENDED_OP_LAYERSTACK = 2,
+
+    /*
+     * Returns display information
+     * @params
+     * data: hwc_display_info_t
+     */
+    HWC_EXTENDED_OP_DISPLAYINFO = 3,
 };
 
 typedef struct hwc_layer_extended {
@@ -390,6 +397,19 @@ typedef struct hwc_layer_stack {
      */
     uint32_t stack;
 } hwc_layer_stack_t;
+
+typedef struct hwc_display_info {
+    /*
+     * Display index (input)
+     */
+    int32_t dpy;
+
+    /*
+     * Display resolution (output)
+     */
+    uint32_t width;
+    uint32_t height;
+} hwc_display_info_t;
 
 typedef struct hwc_layer_list_extended {
     size_t numHwLayers;
