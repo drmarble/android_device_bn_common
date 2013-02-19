@@ -409,6 +409,11 @@ typedef struct hwc_display_info {
      */
     uint32_t width;
     uint32_t height;
+
+    /*
+     * Display orientation (output)
+     */
+    uint32_t orientation;
 } hwc_display_info_t;
 
 typedef struct hwc_layer_list_extended {
