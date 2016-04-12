@@ -28,8 +28,6 @@ on init
 
     #write /sys/kernel/mm/ksm/run 1
 
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
 on fs
