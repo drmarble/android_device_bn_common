@@ -14,6 +14,3 @@
 
 DEVICE_PACKAGE_OVERLAYS += device/bn/common/overlay/cm
 
-# Prebuilt toybox
-PRODUCT_COPY_FILES += \
-    device/bn/common/prebuilt/bin/toybox:system/bin/toybox
