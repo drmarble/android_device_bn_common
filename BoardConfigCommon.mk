@@ -153,6 +153,11 @@ TARGET_HAS_WAITFORVSYNC := true
 #BOARD_USE_MHEAP_SCREENSHOT := true
 TARGET_USES_OPENGLES_FOR_SCREEN_CAPTURE := true
 
+# HDMI
+BOARD_USES_NEW_HDMI := true
+#BOARD_USES_GSC_VIDEO := true
+BOARD_USES_CEC := true
+
 # Set to true for platforms with 32 byte L2 cache line.
 ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 # Allowing unaligned access for NEON memory instructions.
