@@ -2,7 +2,7 @@
 
 PATH=/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
 ORIG_NVS_BIN=/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin
-INI_FILE=/system/etc/firmware/ti-connectivity/ini_files/TQS_S_2.6.ini
+INI_FILE=/system/etc/wifi/ini_files/127x_TQS_S_2.6.ini
 NVS_BIN=/rom/devconf/wl1271-nvs.bin; MACFILE=/rom/devconf/MACAddress
 WLAN_MODULE=wl12xx_sdio; WLAN_PATH=/system/lib/modules/${WLAN_MODULE}.ko
 
