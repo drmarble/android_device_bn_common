@@ -21,4 +21,8 @@
 
 #define BTHC_USERIAL_READ_MEM_SIZE 2048
 
+#define BLE_INCLUDED TRUE
+
+#define SC_MODE_INCLUDED FALSE
+
 #endif
