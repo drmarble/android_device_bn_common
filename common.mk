@@ -190,6 +190,9 @@ PRODUCT_PACKAGES += \
     sensors.$(TARGET_BOOTLOADER_BOARD_NAME) \
     audio.hdmi.$(TARGET_BOOTLOADER_BOARD_NAME)
 
+# Ducati/IPU firmware
+PRODUCT_PACKAGES += ducati-m3
+
 ifeq ($(BN_CAMERA_STUB),true)
 PRODUCT_PACKAGES += \
     camera.$(TARGET_BOOTLOADER_BOARD_NAME)
