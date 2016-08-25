@@ -119,7 +119,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     wpa_supplicant \
     ti_wfd_libs \
-    dhcpcd.conf \
     wpa_supplicant.conf \
     lib_driver_cmd_wl12xx \
     127x_TQS_S_2.6.ini \
