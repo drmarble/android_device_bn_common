@@ -14,7 +14,7 @@
 COMMON_FOLDER := device/bn/common
 
 #BOARD_USE_CUSTOM_HWC := true
-COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_HWC_EXTENDED_API
+OMAP_ENHANCEMENT_HWC_EXTENDED_API := true
 
 TARGET_KERNEL_HAVE_EXFAT := \
     $(if $(strip $(wildcard external/*exfat*/Kconfig)),true,)
@@ -98,7 +98,6 @@ WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wl12xx
 BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
-COMMON_GLOBAL_CFLAGS		 += -DUSES_TI_MAC80211
 else
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 endif
