@@ -22,7 +22,4 @@ PRODUCT_COPY_FILES += \
 # Device & filesystem
 PRODUCT_PACKAGES += \
     Terminal \
-    mount.exfat \
-    fsck.exfat \
-    mkfs.exfat \
     nano
