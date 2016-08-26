@@ -14,5 +14,3 @@
 
 DEVICE_PACKAGE_OVERLAYS += device/bn/common/overlay/cm
 
-# Gello/replace Browser
-PRODUCT_PACKAGES += Gello
