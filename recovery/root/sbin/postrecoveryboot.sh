@@ -17,4 +17,4 @@ umount /bootdata
 #rmdir /bootdata
 
 # Now adjust touchscreen sensitivity
-echo 0x16 >/sys/bus/i2c/drivers/ft5x06/3-0038/sensitivity
+#echo 0x16 >/sys/bus/i2c/drivers/ft5x06/3-0038/sensitivity
