@@ -1,0 +1,9 @@
+# bootcnt
+type bootcnt, domain;
+type bootcnt_exec, exec_type, file_type;
+
+init_daemon_domain(bootcnt)
+
+allow bootcnt vfat:dir search;
+allow bootcnt vfat:file rw_file_perms;
+allow bootcnt shell_exec:file rx_file_perms;
