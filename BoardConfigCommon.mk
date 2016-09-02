@@ -112,6 +112,8 @@ TARGET_KERNEL_SOURCE := kernel/bn/omap
 TARGET_KERNEL_CONFIG := android_omap4_defconfig
 TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+
 ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/drivers/gpu/ion/ion_page_pool.c)))
 export BOARD_USE_TI_LIBION := false
 endif
