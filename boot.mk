@@ -27,13 +27,13 @@ MY_TAG = "eMMC $(@F)+secondloader for $(TARGET_DEVICE)"
 # this is a copy of the build/core/Makefile target
 $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(MASTER_KEY)
 	$(call pretty,"Target boot image: $@")
-	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) \
-																--output $@.orig
+	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) \
+			$(BOARD_MKBOOTIMG_ARGS) --output $@.orig
 	$(hide) cp $(BOOT_BIN) $@.bin; dd if=$(MASTER_KEY) of=$@.bin bs=782480 seek=1 \
-		conv=notrunc; $(MKBOOTIMG) --kernel $@.bin --ramdisk /dev/null --cmdline \
-		$(MY_TAG) --ramdisk_offset 0x1000000 --pagesize 4096 --base 0x80d78000 -o $@; \
-		cp $@ $@.key; dd if=$@.orig of=$@ bs=1048576 seek=1; rm $@.bin
-	$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE),raw)
+			conv=notrunc; $(MKBOOTIMG) --kernel $@.bin --ramdisk /dev/null --cmdline \
+			$(MY_TAG) --ramdisk_offset 0x1000000 --pagesize 4096 --base 0x80d78000 -o $@; \
+			cp $@ $@.key; dd if=$@.orig of=$@ bs=1048576 seek=1; rm $@.bin
+	$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE))
 	@echo -e ${CL_CYN}"Made boot image: $@"${CL_RST}
 
 #
@@ -42,11 +42,11 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(MASTER
 $(INSTALLED_RECOVERYIMAGE_TARGET): \
 			$(MKBOOTIMG) $(recovery_ramdisk) $(recovery_kernel) $(MASTER_KEY)
 	$(call build-recoveryimage-target, $@)
-	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) \
-																		--output $@.orig
+	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) \
+			$(BOARD_MKBOOTIMG_ARGS) --output $@.orig
 	$(hide) cp $(RECO_BIN) $@.bin; dd if=$(MASTER_KEY) of=$@.bin bs=782480 seek=1 \
-		conv=notrunc; $(MKBOOTIMG) --kernel $@.bin --ramdisk /dev/null --cmdline \
-		$(MY_TAG) --ramdisk_offset 0x1000000 --pagesize 4096 --base 0x80d78000 -o $@; \
-		cp $@ $@.key; dd if=$@.orig of=$@ bs=1048576 seek=1; rm $@.bin
+			conv=notrunc; $(MKBOOTIMG) --kernel $@.bin --ramdisk /dev/null --cmdline \
+			$(MY_TAG) --ramdisk_offset 0x1000000 --pagesize 4096 --base 0x80d78000 -o $@; \
+			cp $@ $@.key; dd if=$@.orig of=$@ bs=1048576 seek=1; rm $@.bin
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
 	@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
