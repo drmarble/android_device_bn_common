@@ -83,6 +83,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.carrier=wifi-only \
     telephony.sms.send=false
 
+# Enable scissor optimisation/override commonized setting
+ADDITIONAL_BUILD_PROPERTIES += ro.hwui.disable_scissor_opt=false
+
 # Disable the AssetAtlas service - may use more RAM than it saves
 ADDITIONAL_BUILD_PROPERTIES += config.disable_atlas=true
 
