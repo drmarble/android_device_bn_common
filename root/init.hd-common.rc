@@ -142,8 +142,8 @@ on property:dev.bootcomplete=1
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
     write /sys/block/mmcblk1/queue/iosched/slice_idle 0
     write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/sync_threshold 1100000
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1300000
+    #write /sys/module/cpu_boost/parameters/sync_threshold 1300000
+    write /sys/module/cpu_boost/parameters/input_boost_freq 1100000
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
     write /sys/devices/platform/omap/pvrsrvkm.0/sgxfreq/frequency_limit 384000000
