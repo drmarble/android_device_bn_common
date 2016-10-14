@@ -41,7 +41,7 @@ BOARD_WPAN_DEVICE := true
 
 WLAN_MODULES:
 	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
-	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNELDIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNELDIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
@@ -58,7 +58,7 @@ TARGET_KERNEL_MODULES += WLAN_MODULES
 SGX_MODULES:
 	make clean -C $(OMAP4_NEXT_FOLDER)/pvr-source/eurasiacon/build/linux2/omap4430_android
 	#cp $(TARGET_KERNEL_SOURCE)/drivers/video/omap2/omapfb/omapfb.h $(KERNEL_OUT)/drivers/video/omap2/omapfb/omapfb.h
-	make -j8 -C $(OMAP4_NEXT_FOLDER)/pvr-source/eurasiacon/build/linux2/omap4430_android ARCH=arm KERNEL_CROSS_COMPILE=arm-eabi- CROSS_COMPILE=arm-eabi- KERNELDIR=$(KERNEL_OUT) TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=544sc PLATFORM_VERSION=5.0
+	make -j8 -C $(OMAP4_NEXT_FOLDER)/pvr-source/eurasiacon/build/linux2/omap4430_android ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE) KERNELDIR=$(KERNEL_OUT) TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=544sc PLATFORM_VERSION=5.0
 	mv $(KERNEL_OUT)/../../target/kbuild/pvrsrvkm_sgx544_112.ko $(KERNEL_MODULES_OUT)
 	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/pvrsrvkm_sgx544_112.ko
 
@@ -66,7 +66,7 @@ TARGET_KERNEL_MODULES += SGX_MODULES
 
 EXFAT_MODULE:
 	make clean -C external/exfat-nofuse KDIR=$(KERNEL_OUT)
-	make -j8 -C external/exfat-nofuse ARCH=arm CROSS_COMPILE=arm-eabi- KDIR=$(KERNEL_OUT)
+	make -j8 -C external/exfat-nofuse ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE) KDIR=$(KERNEL_OUT)
 	mv external/exfat-nofuse/exfat.ko $(KERNEL_MODULES_OUT)
 	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/exfat.ko
 
@@ -124,6 +124,14 @@ BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 ifneq (,$(strip $(wildcard $(TARGET_KERNEL_SOURCE)/drivers/gpu/ion/ion_page_pool.c)))
 export BOARD_USE_TI_LIBION := false
 endif
+
+ifeq ($(ARM_EABI_TOOLCHAIN),)
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN := $(ANDROID_TOOLCHAIN_2ND_ARCH)arm/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION)/bin
+ARM_EABI_TOOLCHAIN := $(KERNEL_TOOLCHAIN)
+endif
+
+ARM_CROSS_COMPILE ?= $(KERNEL_CROSS_COMPILE)
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
