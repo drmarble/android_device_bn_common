@@ -16,8 +16,6 @@ COMMON_FOLDER := device/bn/common
 #BOARD_USE_CUSTOM_HWC := true
 OMAP_ENHANCEMENT_HWC_EXTENDED_API := true
 
-KERNEL_HAS_FINIT_MODULE := false
-
 GAPPS_VARIANT := nano
 
 # inherit from the proprietary versions
