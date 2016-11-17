@@ -22,3 +22,9 @@ on boot
     write /sys/class/android_usb/android0/idVendor ${usb.vendor}
     write /sys/class/android_usb/android0/idProduct ${usb.product.mtpadb}
 
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 256
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 256
+    write /sys/block/mmcblk0/queue/scheduler bfq
+    write /sys/block/mmcblk1/queue/scheduler bfq
+    write /sys/block/mmcblk0/queue/iosched/slice_idle 0
+    write /sys/block/mmcblk1/queue/iosched/slice_idle 0
