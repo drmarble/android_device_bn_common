@@ -142,8 +142,8 @@ USE_OPENGL_RENDERER := true
 TARGET_USES_OVERLAY := true
 TARGET_USES_ION := true
 # cache opts 12x & 32x defaults
-#MAX_EGL_CACHE_KEY_SIZE := 12*1024
-#MAX_EGL_CACHE_SIZE := 2048*1024
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
 # anything taller/wider bypasses HWC
 #MAX_VIRTUAL_DISPLAY_DIMENSION := 1920
 # distribute wake events, from Nexus 5
