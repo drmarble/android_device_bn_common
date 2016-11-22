@@ -72,7 +72,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
     com.ti.omap_enhancement=true \
     omap.enhancement=true \
     ro.crypto.state=unencrypted \
-    persist.sys.usb.config=mtp,adb \
     persist.sys.root_access=3 \
     ro.sf.lcd_density=240 \
     ro.nf.profile=2 \
