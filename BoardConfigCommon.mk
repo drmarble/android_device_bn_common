@@ -16,7 +16,8 @@ COMMON_FOLDER := device/bn/common
 #BOARD_USE_CUSTOM_HWC := true
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_HWC_EXTENDED_API
 
-TARGET_KERNEL_HAVE_EXFAT := true
+TARGET_KERNEL_HAVE_EXFAT := \
+    $(if $(strip $(wildcard external/*exfat*/Kconfig)),true,)
 
 GAPPS_VARIANT := nano
 
