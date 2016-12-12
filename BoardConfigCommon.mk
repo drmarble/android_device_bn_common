@@ -16,9 +16,6 @@ COMMON_FOLDER := device/bn/common
 #BOARD_USE_CUSTOM_HWC := true
 OMAP_ENHANCEMENT_HWC_EXTENDED_API := true
 
-TARGET_KERNEL_HAVE_EXFAT := \
-    $(if $(strip $(wildcard external/*exfat*/Kconfig)),true,)
-
 GAPPS_VARIANT := nano
 
 # inherit from the proprietary versions
@@ -38,41 +35,6 @@ USE_CAMERA_STUB := true
 BOARD_HAVE_FAKE_GPS := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_WPAN_DEVICE := true
-
-WLAN_MODULES:
-	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
-	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNELDIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/mac80211.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
-
-TARGET_KERNEL_MODULES += WLAN_MODULES
-
-SGX_MODULES:
-	make clean -C $(OMAP4_NEXT_FOLDER)/pvr-source/eurasiacon/build/linux2/omap4430_android
-	#cp $(TARGET_KERNEL_SOURCE)/drivers/video/omap2/omapfb/omapfb.h $(KERNEL_OUT)/drivers/video/omap2/omapfb/omapfb.h
-	make -j8 -C $(OMAP4_NEXT_FOLDER)/pvr-source/eurasiacon/build/linux2/omap4430_android ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE) KERNELDIR=$(KERNEL_OUT) TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=544sc PLATFORM_VERSION=5.0
-	mv $(KERNEL_OUT)/../../target/kbuild/pvrsrvkm_sgx544_112.ko $(KERNEL_MODULES_OUT)
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/pvrsrvkm_sgx544_112.ko
-
-TARGET_KERNEL_MODULES += SGX_MODULES
-
-EXFAT_MODULE:
-	make clean -C external/exfat-nofuse KDIR=$(KERNEL_OUT)
-	make -j8 -C external/exfat-nofuse ARCH=arm CROSS_COMPILE=$(ARM_CROSS_COMPILE) KDIR=$(KERNEL_OUT)
-	mv external/exfat-nofuse/exfat.ko $(KERNEL_MODULES_OUT)
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/exfat.ko
-
-ifeq ($(TARGET_KERNEL_HAVE_EXFAT),true)
-TARGET_KERNEL_MODULES += EXFAT_MODULE
-endif
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
@@ -135,6 +97,13 @@ ARM_EABI_TOOLCHAIN := $(KERNEL_TOOLCHAIN)
 endif
 
 ARM_CROSS_COMPILE ?= $(KERNEL_CROSS_COMPILE)
+
+EXFAT_KM_PATH ?= $(dir $(wildcard external/*exfat*/Kconfig))
+
+ifneq (,$(EXFAT_KM_PATH))
+TARGET_KERNEL_HAVE_EXFAT := true
+include $(EXFAT_KM_PATH)/exfat-km.mk
+endif
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true

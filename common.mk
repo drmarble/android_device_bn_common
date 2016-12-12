@@ -21,7 +21,8 @@ COMMON_FOLDER := device/bn/common
 
 TARGET_BOARD_OMAP_CPU := 4470
 
-$(call inherit-product-if-exists, hardware/ti/omap4/omap4.mk)
+$(call inherit-product, hardware/ti/omap4/omap4.mk)
+$(call inherit-product, hardware/ti/omap4/pvr-km.mk)
 
 # set to allow building from omap4-common
 BOARD_VENDOR := bn
@@ -213,6 +214,7 @@ $(call inherit-product-if-exists, vendor/ti/omap4/omap4-vendor.mk)
 $(call inherit-product-if-exists, vendor/bn/hd-common/hd-common-vendor.mk)
 $(call inherit-product-if-exists, vendor/widevine/arm-generic/widevine-vendor.mk)
 $(call inherit-product, hardware/ti/wlan/mac80211/wl127x-wlan-products.mk)
+$(call inherit-product, hardware/ti/wlan/mac80211/wl12xx-wlan-modules.mk)
 $(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
 
 ifneq (,$(strip $(wildcard vendor/google/build/opengapps-packages.mk)))
