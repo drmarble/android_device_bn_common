@@ -3,6 +3,8 @@
 /dev/tiler                0666   system     system
 /dev/dmm                  0777   system     system
 /dev/ion                  0666   system     system
+/dev/sw_sync              0666   system     system
+/dev/pvr_sync             0666   system     system
 
 /dev/rpmsg-omx0           0666   drmrpc    drmrpc
 /dev/rpmsg-omx1           0666   drmrpc    drmrpc
